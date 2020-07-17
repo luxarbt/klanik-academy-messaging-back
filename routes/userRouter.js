@@ -102,4 +102,10 @@ router.get("/", auth, async (req, res) =>  {
     const user = await User.findById(req.user);
     res.json(user);
 })
+
+router.get("/all", async (req, res) => {
+    const users = await User.find()
+    res.json(users)
+})
+
 module.exports = router;
