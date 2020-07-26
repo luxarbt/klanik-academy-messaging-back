@@ -4,9 +4,7 @@ const User = require("../models/userModel")
 
 router.post("/newrequest", async (req, res) => {
 
-    const userRequesting = await User.findById(req.query.userRequestingId)
-    const userRequested = await User.findById(req.query.userRequestedId)
-    const status = req.body.status
+    const { userRequesting, userRequested, status } = req.body
 
     const chatRequest = new ChatRequest({
         userRequesting,
