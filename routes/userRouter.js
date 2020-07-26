@@ -75,7 +75,6 @@ router.post("/login", async (req, res) =>  {
                 surname: user.surname,
             },
         })
-        console.log(token);
     } catch (err) {
         res.status(500).json({error: err.message});
     }
@@ -104,6 +103,7 @@ router.get("/", auth, async (req, res) =>  {
 })
 
 router.get("/all", async (req, res) => {
+    console.log(req.user)
     const users = await User.find()
     res.json(users)
 })

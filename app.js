@@ -9,6 +9,7 @@ require("dotenv").config();
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/userRouter');
+var chatRequestRouter = require('./routes/chatRequestRouter')
 
 var app = express();
 
@@ -25,6 +26,7 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/chat', chatRequestRouter)
 
 // Set up default mongoose connection
 var mongoDB = 'mongodb://127.0.0.1/klanik_academy_messaging_web';
