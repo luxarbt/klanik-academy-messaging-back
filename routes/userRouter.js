@@ -106,7 +106,7 @@ router.get("/", auth, async (req, res) =>  {
 router.get("/user", async (req, res) =>  {
     const user = await User.findById(req.query.user);
     res.json({
-        id: user._id,
+        _id: user._id,
         name: user.name,
         surname: user.surname
     });
