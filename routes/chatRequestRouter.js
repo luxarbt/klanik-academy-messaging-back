@@ -18,22 +18,27 @@ router.post("/newrequest", async (req, res) => {
 })
 
 router.put("/updaterequest", async (req, res) =>  {
-    const status = req.body.status
-    const idRequest = req.body.chatRequestId
+    const status = req.body.status;
+    const idRequest = req.body.chatRequestId;
 
-    const updatedChatRequest = await ChatRequest.findByIdAndUpdate(idRequest, {"status": status})
-    res.json(updatedChatRequest)
+    const updatedChatRequest = await ChatRequest.findByIdAndUpdate(idRequest, {"status": status});
+    res.json(updatedChatRequest);
 })
 
 router.get("/requestget", async (req, res) =>  {
-    let userData = JSON.parse(req.query.userRequested)
-    const chatRequest = await ChatRequest.find({userRequested: userData.user._id})
-    res.json(chatRequest)
+    let userData = JSON.parse(req.query.userRequested);
+    const chatRequest = await ChatRequest.find({userRequested: userData.user._id});
+    res.json(chatRequest);
 })
 
 router.get("/requestsent", async (req, res) => {
-    const chatRequest = await ChatRequest.find({userRequesting: req.query.userRequesting})
-    res.json(chatRequest)
+    const chatRequest = await ChatRequest.find({userRequesting: req.query.userRequesting});
+    res.json(chatRequest);
+})
+
+router.get("/requests", async (req, res) => {
+    const chatRequest = await ChatRequest.find();
+    res.json(chatRequest);
 })
 
 module.exports = router
