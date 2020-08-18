@@ -1,6 +1,7 @@
 const router = require("express").Router()
 const ChatRequest = require("../models/chatRequestModel")
 const User = require("../models/userModel")
+const Conversation = require("../models/conversationModel");
 
 router.post("/newrequest", async (req, res) => {
 

@@ -20,4 +20,9 @@ router.post("/send", async (req, res) => {
     res.json(savedMessage);
 });
 
+router.get("/messagesget", async (req, res) =>  {
+    const messages = await Message.find({sender: req.query.sender, receiver: req.query.receiver});
+    res.json(messages);
+})
+
 module.exports = router;
