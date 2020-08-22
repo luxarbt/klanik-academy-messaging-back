@@ -1,21 +1,6 @@
-const router = require("express").Router()
-const Conversation = require("../models/conversationModel");
+const router = require("express").Router();
+const ConversationController = require("../controllers/conversationController");
 
-router.post("/newconversation", async (req, res) => {
+router.post("/newconversation", ConversationController.createConversation)
 
-    const firstUser = req.body.params.firstUser;
-    const secondUser = req.body.params.secondUser;
-    const messages = [];
-
-    const conversation = new Conversation({
-        firstUser,
-        secondUser,
-        messages
-    })
-
-    const conversationSaved = await conversation.save()
-
-    res.json(conversationSaved)
-})
-
-module.exports = router
+module.exports = router;
