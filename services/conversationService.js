@@ -14,3 +14,12 @@ exports.createConversation = async function (firstUser, secondUser, messages) {
         throw Error("Error when creating new conversation" + err);
     }
 }
+
+exports.getAllConversations = async function () {
+    try {
+        const conversations = await Conversation.find();
+        return conversations;
+    } catch (err) {
+        throw Error("Error when getting all conversations" + err);
+    }
+}

@@ -11,3 +11,12 @@ exports.createConversation = async function (req, res, next) {
         res.status(500).json({ error: err.message });
     }
 }
+
+exports.getAllConversations = async function (req, res, next) {
+    try {
+        const conversations = await ConversationService.getAllConversations();
+        res.json(conversations);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+}
