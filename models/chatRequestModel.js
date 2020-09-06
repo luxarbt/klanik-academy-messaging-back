@@ -15,4 +15,5 @@ const chatRequestSchema = new mongoose.Schema({
   },
 });
 
+// eslint-disable-next-line no-undef
 module.exports = ChatRequest = mongoose.model("chatrequest", chatRequestSchema);

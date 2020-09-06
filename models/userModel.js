@@ -7,4 +7,5 @@ const userSchema = new mongoose.Schema({
   surname: { type: String, required: true },
 });
 
+// eslint-disable-next-line no-undef
 module.exports = User = mongoose.model("user", userSchema);

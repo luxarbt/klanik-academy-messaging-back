@@ -13,6 +13,11 @@ const messageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  conversation: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Conversation",
+  },
 });
 
+// eslint-disable-next-line no-undef
 module.exports = Message = mongoose.model("message", messageSchema);

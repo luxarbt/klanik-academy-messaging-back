@@ -4,7 +4,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
-const socket = require("socket.io");
+// const socket = require("socket.io");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -33,17 +33,17 @@ app.use("/chat", chatRequestRouter);
 app.use("/messages", messageRouter);
 app.use("/conversation", conversationRouter);
 
-const server = app.listen(8080, function () {
+/* const server = app.listen(8080, function () {
   console.log("Server is running on port 8080");
-});
+}); */
 
-const io = socket(server);
+// const io = socket(server);
 // eslint-disable-next-line no-shadow
-io.on("connection", (socket) => {
+/* io.on("connection", (socket) => {
   socket.on("message", function (message) {
     socket.emit("message", { message: message });
   });
-});
+}); */
 // Set up default mongoose connection
 const mongoDB = process.env.DB_URL + process.env.DB_NAME;
 mongoose.connect(
