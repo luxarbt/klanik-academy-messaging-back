@@ -8,14 +8,6 @@ const userSchema = new mongoose.Schema({
   surname: { type: String, required: true },
 });
 
-const encKey = process.env.ENCKEY;
-const sigKey = process.env.SIGKEY;
-
-userSchema.plugin(encrypt, {
-  encryptionKey: encKey,
-  signingKey: sigKey,
-  encryptedFields: ["name", "surname"],
-});
 
 // eslint-disable-next-line no-undef
 module.exports = User = mongoose.model("user", userSchema);

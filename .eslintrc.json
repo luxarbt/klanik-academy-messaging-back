@@ -10,6 +10,7 @@
       "object-shorthand": "off",
       "class-methods-use-this": "off",
       "no-underscore-dangle": "off",
-      "no-multi-assign": "off"
+      "no-multi-assign": "off",
+      "no-unpublished-require": "off"
     }
   }
