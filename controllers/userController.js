@@ -1,7 +1,10 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
 const UserService = require("../services/userService");
 const User = require("../models/userModel");
+const Token = require("../models/tokenModel");
 
 exports.registerUser = async function (req, res, next) {
   try {
@@ -34,7 +37,45 @@ exports.registerUser = async function (req, res, next) {
       name,
       surname
     );
-    return res.json(savedUser);
+
+    const token = new Token({
+      _userId: savedUser._id,
+      token: crypto.randomBytes(16).toString("hex"),
+    });
+
+    token.save();
+
+    const transporter = nodemailer.createTransport({
+      service: "Sendgrid",
+      auth: {
+        user: process.env.SENDGRID_USERNAME,
+        pass: process.env.SENDGRID_PASSWORD,
+      },
+    });
+
+    const mailOptions = {
+      from: "alexisribot10@gmail.com",
+      to: savedUser.email,
+      subject: "Account Verification Link",
+      text:
+        `Hello ${req.body.name},\n\n` +
+        `Please verify your account by clicking the link: \nhttp://${req.headers.host}/confirmation/${savedUser.email}/${token.token}\n\nThank You!\n`,
+    };
+
+    transporter.sendMail(mailOptions, function (err) {
+      if (err) {
+        console.log(err);
+        return res.status(500).json({
+          msg:
+            "Technical Issue!, Please click on resend for verify your Email.",
+        });
+      }
+      return res.status(200).json({
+        msg: `A verification email has been sent to ${savedUser.email}. It will be expire after one day. If you not get verification Email click on resend token.`,
+      });
+    });
+
+    // return res.json(savedUser);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -57,6 +98,9 @@ exports.loginUser = async function (req, res, next) {
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ msg: "Invalid credentials." });
+
+    if (!user.isVerified)
+      return res.status(401).json({ msg: "Account not verified" });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     res.json({

@@ -12,6 +12,7 @@ const usersRouter = require("./routes/userRouter");
 const chatRequestRouter = require("./routes/chatRequestRouter");
 const messageRouter = require("./routes/messageRouter");
 const conversationRouter = require("./routes/conversationRouter");
+const emailRouter = require("./routes/emailRouter");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/users", usersRouter);
 app.use("/chat", chatRequestRouter);
 app.use("/messages", messageRouter);
 app.use("/conversation", conversationRouter);
+app.use("/confirmation", emailRouter);
 
 // Set up default mongoose connection
 const mongoDB = process.env.DB_URL + process.env.DB_NAME;
